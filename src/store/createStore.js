@@ -1,6 +1,8 @@
 import { applyMiddleware, compose, createStore } from 'redux'
 import thunk from 'redux-thunk'
 import { browserHistory } from 'react-router'
+import { createLogger } from 'redux-logger'
+import promise from 'redux-promise-middleware'
 import makeRootReducer from './reducers'
 import { updateLocation } from './location'
 
@@ -14,13 +16,10 @@ export default (initialState = {}) => {
   // Store Enhancers
   // ======================================================
   const enhancers = []
-
-  let composeEnhancers = compose
-
   if (__DEV__) {
-    const composeWithDevToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    if (typeof composeWithDevToolsExtension === 'function') {
-      composeEnhancers = composeWithDevToolsExtension
+    const devToolsExtension = window.devToolsExtension
+    if (typeof devToolsExtension === 'function') {
+      enhancers.push(devToolsExtension())
     }
   }
 
@@ -30,8 +29,8 @@ export default (initialState = {}) => {
   const store = createStore(
     makeRootReducer(),
     initialState,
-    composeEnhancers(
-      applyMiddleware(...middleware),
+    compose(
+      applyMiddleware(promise(), ...middleware, createLogger()),
       ...enhancers
     )
   )
