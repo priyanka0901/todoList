@@ -25,7 +25,7 @@ fetchUserInfo() {
 }
 
 render() {
-  return (
+  return ( 
       <div>
         <h1>Welcome to Signin</h1>
         <form>

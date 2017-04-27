@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 //actions creators
-export function fetchRegisterToken(username, password, confirmPassword) {
+export function fetchRegisterToken(username, password, confirm_password) {
+    console.log(username + password + confirm_password);
     return  {
         type: "FETCH_USERINFO",
         payload: axios({
@@ -10,8 +11,18 @@ export function fetchRegisterToken(username, password, confirmPassword) {
             data: {
                 username: username,
                 password: password,
-                confirmPassword: confirmPassword
+                confirm_password: confirm_password
             }
         })
+        .then(function (response) {
+            var registerToken = response.data.key;
+            console.log(registerToken);
+            localStorage.setItem('tokenkey',JSON.stringify(registerToken));
+            var registerTokenStorage = localStorage.getItem('tokenkey');
+            console.log(registerTokenStorage);
+        })
+        .catch(function (error) {
+            console.log('wrong inputs');
+          })
     }
 }

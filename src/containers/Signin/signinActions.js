@@ -13,15 +13,13 @@ export function fetchSigninToken(username, password) {
             }
         })
         .then(function (response) {
-            var token;
-            token = response.data.key;
-            console.log(token);
-            // var tokenLocalStorage = JSON.parse(localStorage.getItem('token'));
-            // localStorage.setItem('token', JSON.stringify(tokenLocalStorage));
-            // console.log(tokenLocalStorage);
-            var tokenLocalStorage = localStorage.setItem('token', JSON.stringify(tokenLocalStorage));
-            console.log(tokenLocalStorage);
+            var signinToken = response.data.key;
+            localStorage.setItem('tokenkey',JSON.stringify(signinToken));
+            var signinTokenStorage = localStorage.getItem('tokenkey');
         })
+        .catch(function (error) {
+            console.log('wrong inputs');
+          })
     }
 }
 

@@ -1,26 +1,49 @@
 import React from 'react';
 
 class Register extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+      confirm_password: ''
+    };
+    this.handleEmailChange= this.handleEmailChange.bind(this)
+    this.handlePasswordChange= this.handlePasswordChange.bind(this)
+    this.handleConfirmPasswordChange= this.handleConfirmPasswordChange.bind(this)
+    this.fetchUserInfo = this.fetchUserInfo.bind(this)
+  }
+
+  handleEmailChange(e) {
+     this.setState({email: e.target.value});
+  }
+
+  handlePasswordChange(e) {
+     this.setState({password: e.target.value});
+  }
+
+  handleConfirmPasswordChange(e) {
+     this.setState({confirm_password: e.target.value});
+  }
 
   fetchUserInfo() {
-    this.props.fetchRegisterToken();
+    this.props.fetchRegisterToken(this.state.email,this.state.password,this.state.confirm_password);
     // console.log(fetchSigninToken);
   }
 
   render() {
-    const {token} = this.props;
     return (
         <div>
           <h1>Welcome to Register</h1>
           <form>
               <label>EMAIL ADDRESS </label>
-              <input type="email" id="user-email" />
+              <input type="email" id="user-email" value={this.state.email} onChange={this.handleEmailChange}/>
               <label>PASSWORD </label>
-              <input type= "password" id="user-pass" />
+              <input type= "password" id="user-pass" value={this.state.password} onChange={this.handlePasswordChange}/>
               <label>CONFIRM PASSWORD </label>
-              <input type= "password" id="user-pass" />
+              <input type= "password" id="user-pass" value={this.state.confirm_password} onChange={this.handleConfirmPasswordChange}/>
           </form>
-          <button type="submit" onClick={this.fetchUserInfo.bind(this)}>Register </button>
+          <button type="submit" onClick={this.fetchUserInfo}>Register </button>
         </div>
      
     );
