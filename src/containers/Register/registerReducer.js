@@ -11,7 +11,7 @@
              }
          }
          case "FETCH_USERINFO_REJECTED": {
-             return {
+             return { 
                  ...state,
                  fetching:false,
                  error:action.payload

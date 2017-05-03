@@ -1,10 +1,12 @@
 import axios from 'axios';
 
+
 //actions creators
 export function fetchSigninToken(username, password) {
+    console.log(username)
     return  {
         type: "FETCH_USERINFO",
-        payload: axios({
+        payload: axios({ 
             method: "post",
             url: "https://frontend-challenge-2.herokuapp.com/rest-auth/login/",
             data: {
@@ -14,12 +16,31 @@ export function fetchSigninToken(username, password) {
         })
         .then(function (response) {
             var signinToken = response.data.key;
-            localStorage.setItem('tokenkey',JSON.stringify(signinToken));
+            localStorage.setItem('tokenkey',signinToken);
             var signinTokenStorage = localStorage.getItem('tokenkey');
+            window.location = '/home';
         })
         .catch(function (error) {
             console.log('wrong inputs');
           })
     }
 }
+
+export function requireAuth (nextState, replaceState) {
+    const token = localStorage.getItem('tokenkey')
+    if (!token) {
+        replaceState('/Signin');
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
 

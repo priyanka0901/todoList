@@ -30,11 +30,11 @@ render() {
         <h1>Welcome to Signin</h1>
         <form>
             <label>EMAIL ADDRESS </label>
-            <input type="email" id="user-email" value={this.state.username} onChange={this.handleUserNameChange}/>
+            <input type="email" id="user-email" required ="required" value={this.state.username} onChange={this.handleUserNameChange}/>
             <label>PASSWORD </label>
-            <input type="password" id="user-pass" value={this.state.password} onChange={this.handlePasswordChange} />
+            <input type="password" id="user-pass" required ="required" value={this.state.password} onChange={this.handlePasswordChange} />
         </form>
-        <button type="submit" onClick={this.fetchUserInfo}>Signin </button>
+         <button type="button" onClick={this.fetchUserInfo}>Signin </button>
       </div>
     );
   }

@@ -2,8 +2,7 @@
 import CoreLayout from '../layouts/CoreLayout';
 import Signin from '../containers/Signin'; //mention the index route
 import Register from '../containers/Register'
-
-
+import Home from '../containers/Home';
 
 export const createRoutes = (store) => ({
   path        : '/',
@@ -11,6 +10,7 @@ export const createRoutes = (store) => ({
   childRoutes : [
       Signin(store),
       Register(store),
+      Home(store)
    ]
 })
 

@@ -1,0 +1,34 @@
+.home-page {
+    height: 100%;
+    width: 100%;
+}
+
+header {
+    height: 50px;
+    background-color: #2C4154;
+    display: flex;
+    align-items: center;
+
+    p {
+        color:#fff;
+        font-size: 17px;
+        padding-left: 15px;
+        cursor: pointer;
+    }
+}
+
+.add-reminder {
+    text-align: left;
+
+}
+
+.reminder-add {
+    padding: 7px 15px;
+    width: 450px;
+}
+
+.reminder-number {
+    width: 150px;
+    padding: 7px 15px;
+    margin-left: 20px;
+}

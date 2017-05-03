@@ -1,9 +1,9 @@
 import { injectReducer } from '../../store/reducers';
-
+// import { requireAuth } from './signinActions';
 // Sync route definition
 export default (store) => ({
     path : 'Signin',
-
+    // onEnter: requireAuth,
     getComponent (nextState, cb) {
         require.ensure([], (require) => {
 

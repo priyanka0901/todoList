@@ -5,7 +5,7 @@ class Register extends React.Component {
     super(props);
     this.state = {
       email: '',
-      password: '',
+      password: '', 
       confirm_password: ''
     };
     this.handleEmailChange= this.handleEmailChange.bind(this)
@@ -28,20 +28,23 @@ class Register extends React.Component {
 
   fetchUserInfo() {
     this.props.fetchRegisterToken(this.state.email,this.state.password,this.state.confirm_password);
-    // console.log(fetchSigninToken);
   }
-
+  
+  validatePassword(){
+    this.props.validatePassword(this.state.password, this.state.confirm_password);
+  }
   render() {
     return (
         <div>
           <h1>Welcome to Register</h1>
           <form>
               <label>EMAIL ADDRESS </label>
-              <input type="email" id="user-email" value={this.state.email} onChange={this.handleEmailChange}/>
+              <input type="email" id="user-email" required ="required" value={this.state.email} onChange={this.handleEmailChange}/>
               <label>PASSWORD </label>
-              <input type= "password" id="user-pass" value={this.state.password} onChange={this.handlePasswordChange}/>
+              <input type= "password" id="user-pass" required ="required" value={this.state.password} onChange={this.handlePasswordChange}/>
               <label>CONFIRM PASSWORD </label>
-              <input type= "password" id="user-pass" value={this.state.confirm_password} onChange={this.handleConfirmPasswordChange}/>
+              <input type= "password" id="user-pass" required ="required" value={this.state.confirm_password} onChange={this.handleConfirmPasswordChange}/>
+             
           </form>
           <button type="submit" onClick={this.fetchUserInfo}>Register </button>
         </div>
