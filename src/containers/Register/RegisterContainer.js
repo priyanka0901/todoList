@@ -7,9 +7,9 @@ const mapStateToProps = (state) =>{
     return state;
 }
 
-const mapDispatchToProps= () => ({
+const mapDispatchToProps=  {
     fetchRegisterToken:fetchRegisterToken
-})
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register) 
    

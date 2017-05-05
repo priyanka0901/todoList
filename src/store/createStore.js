@@ -2,7 +2,7 @@ import { applyMiddleware, compose, createStore } from 'redux'
 import thunk from 'redux-thunk'
 import { browserHistory } from 'react-router'
 import { createLogger } from 'redux-logger'
-import promise from 'redux-promise-middleware'
+import promiseMiddleware from 'redux-promise-middleware'
 import makeRootReducer from './reducers'
 import { updateLocation } from './location'
 
@@ -30,7 +30,7 @@ export default (initialState = {}) => {
     makeRootReducer(),
     initialState,
     compose(
-      applyMiddleware(promise(), ...middleware, createLogger()),
+      applyMiddleware(promiseMiddleware(), ...middleware, createLogger()),
       ...enhancers
     )
   )

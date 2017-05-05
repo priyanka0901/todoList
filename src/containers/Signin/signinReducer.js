@@ -1,8 +1,8 @@
-export default function signinReducer (state= {
-    token:[],
-    fetching:false,
-    error:null,
-}, action) {
+const initialState = {
+    token: null,
+    error: null
+};
+export default function signinReducer (state = initialState, action) {
     switch(action.type){
         case "FETCH_USERINFO": {
             return {

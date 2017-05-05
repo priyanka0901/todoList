@@ -1,9 +1,7 @@
 import axios from 'axios';
 
-
 //actions creators
 export function fetchSigninToken(username, password) {
-    console.log(username)
     return  {
         type: "FETCH_USERINFO",
         payload: axios({ 

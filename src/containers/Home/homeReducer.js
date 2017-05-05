@@ -1,13 +1,12 @@
-export default function homeReducer (state = {
-    phone_number:[],
-    message: [],
-    id: [],
-    scheduled_datetime:[],
-    fetching:false,
-    error:null,
-}, action ){
+const initialState = {
+    reminders:[], 
+    error:null, 
+}
+
+
+export default function homeReducer (state = initialState , action ){
    switch(action.type){
-        case "FETCH_REMINDER": {
+        case "FETCH_REMINDER_PENDING": {
             return {
                 ...state,
                 fetching:true
@@ -21,16 +20,47 @@ export default function homeReducer (state = {
             }
         }
         case "FETCH_REMINDER_FULFILLED": {
+            console.log('Reducer...', action.payload)
+            console.dir(action)
             return {
                 ...state,
                 fetching:false,
-                phone_number:action.payload,
-                message:action.payload,
-                id:action.payload,
-                scheduled_datetime:action.payload
+                reminders:action.payload.data
+            }
+        }
+        case "SEND_REMINDER_PENDING": {
+            return {
+                ...state,
+                fetching:true
+            }
+        }
+        case "SEND_REMINDER_REJECTED": {
+            return {
+                ...state,
+                fetching:false,
+                error:action.payload
+            }
+        }
+        case "SEND_REMINDER_FULFILLED": {
+            const reminder = action.payload.data
+            const reminders = state.reminders.slice()
+            reminders.push(reminder);
+            console.log(reminders);
+            return {
+                ...state,
+                fetching:false,
+                reminders: reminders
             }
         }
         default:
             return state;
    }
 }
+   
+
+
+
+
+
+
+

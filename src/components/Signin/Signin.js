@@ -7,20 +7,17 @@ constructor(props) {
     username: '',
     password: ''
   };
-  this.handleUserNameChange= this.handleUserNameChange.bind(this)
-  this.handlePasswordChange= this.handlePasswordChange.bind(this)
-  this.fetchUserInfo = this.fetchUserInfo.bind(this)
 }
 
-handleUserNameChange(e) {
+handleUserNameChange = (e) => {
    this.setState({username: e.target.value});
 }
 
-handlePasswordChange(e) {
+handlePasswordChange = (e) => {
    this.setState({password: e.target.value});
 }
 
-fetchUserInfo() {
+fetchUserInfo = () => {
   this.props.fetchSigninToken(this.state.username,this.state.password);
 }
 

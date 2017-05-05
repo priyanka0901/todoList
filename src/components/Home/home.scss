@@ -19,16 +19,52 @@ header {
 
 .add-reminder {
     text-align: left;
+    margin:30px 0;
 
+    input{
+        padding: 7px 15px;
+        margin-left: 20px;
+    }
 }
 
 .reminder-add {
-    padding: 7px 15px;
     width: 450px;
 }
 
 .reminder-number {
-    width: 150px;
+    width: 150px;  
+}
+
+.reminder-date{
+    width: 250px;
+    display: inline-block;
+    padding: 7px 15px;
+}
+
+.add-button, .edit-button{
+    width: 100px;
     padding: 7px 15px;
     margin-left: 20px;
+    background-color: #009D8A;
+    color: #fff;
+    border:none;
+}
+
+.upcoming-reminder{
+    text-align: left;
+    margin:30px 0;
+
+    p{
+        display: inline-block;
+        width: 70%;
+    }
+}
+
+.remove-button{
+    width: 100px;
+    padding: 7px 15px;
+    margin-left: 20px;
+    background-color: #DE0000;
+    color: #fff;
+    border:none;
 }

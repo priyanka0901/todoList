@@ -1,8 +1,9 @@
- export default function registerReducer (state= {
-     token:[],
-     fetching:false,
-     error:null,
- }, action) {
+const initialState = {
+    token: null,
+    error:null
+};
+
+export default function registerReducer (state= initialState, action) {
      switch(action.type){
          case "FETCH_USERINFO": {
              return {

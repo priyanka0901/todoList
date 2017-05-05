@@ -9,11 +9,11 @@ import { homeReducer } from './homeReducer';
      getComponent (nextState, cb) {
          require.ensure([], (require) => {
 
-             const Register = require('./HomeContainer').default
+             const HomeContainer = require('./HomeContainer').default
              const reducer = require('./homeReducer').default
 
              injectReducer(store, {key: 'homeReducer', reducer})
-             cb(null, Register)
+             cb(null, HomeContainer)
 
          },'homeReducer')
      }

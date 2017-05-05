@@ -21,7 +21,7 @@ export function fetchRegisterToken(email, password, confirm_password) {
         })
         .then(function (response) {
             var registerToken = response.data.token;
-            localStorage.setItem('tokenkey',JSON.stringify(registerToken));
+            localStorage.setItem('tokenkey',registerToken);
             var registerTokenStorage = localStorage.getItem('tokenkey');
             console.log(registerTokenStorage);
             window.location = '/home';

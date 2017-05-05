@@ -8,29 +8,25 @@ class Register extends React.Component {
       password: '', 
       confirm_password: ''
     };
-    this.handleEmailChange= this.handleEmailChange.bind(this)
-    this.handlePasswordChange= this.handlePasswordChange.bind(this)
-    this.handleConfirmPasswordChange= this.handleConfirmPasswordChange.bind(this)
-    this.fetchUserInfo = this.fetchUserInfo.bind(this)
   }
 
-  handleEmailChange(e) {
+  handleEmailChange = (e) => {
      this.setState({email: e.target.value});
   }
 
-  handlePasswordChange(e) {
+  handlePasswordChange = (e) => {
      this.setState({password: e.target.value});
   }
 
-  handleConfirmPasswordChange(e) {
+  handleConfirmPasswordChange = (e) => {
      this.setState({confirm_password: e.target.value});
   }
 
-  fetchUserInfo() {
+  fetchUserInfo = () => {
     this.props.fetchRegisterToken(this.state.email,this.state.password,this.state.confirm_password);
   }
-  
-  validatePassword(){
+
+  validatePassword = () =>{
     this.props.validatePassword(this.state.password, this.state.confirm_password);
   }
   render() {
