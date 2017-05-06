@@ -3,8 +3,8 @@ import Home from '../../components/Home';
 import {fetchListReminder} from './homeActions';
 import {sendAddReminder} from './homeActions';
 
-const mapStateToProps = (state) =>{
-    return state;
+const mapStateToProps = (state) => {
+    return state.homeReducer;
 }
 
 const mapDispatchToProps = {
@@ -12,5 +12,5 @@ const mapDispatchToProps = {
     sendAddReminder:sendAddReminder
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home) 
+export default connect(mapStateToProps, mapDispatchToProps)(Home)  
   

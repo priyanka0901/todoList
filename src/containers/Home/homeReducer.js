@@ -20,8 +20,6 @@ export default function homeReducer (state = initialState , action ){
             }
         }
         case "FETCH_REMINDER_FULFILLED": {
-            console.log('Reducer...', action.payload)
-            console.dir(action)
             return {
                 ...state,
                 fetching:false,
@@ -45,7 +43,6 @@ export default function homeReducer (state = initialState , action ){
             const reminder = action.payload.data
             const reminders = state.reminders.slice()
             reminders.push(reminder);
-            console.log(reminders);
             return {
                 ...state,
                 fetching:false,
