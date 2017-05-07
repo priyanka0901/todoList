@@ -16,15 +16,15 @@ class Home extends React.Component {
             userDate:'',
             editable: true,
             idEvent:'',
+            editMessage: '',
+            editNumber:'',
+            editDates:'',
+            removeId: ''
         }
     }
 
     componentWillMount = () => {
         this.props.fetchListReminder(token);  
-    }
-
-    handleDateTime = () => {
-        var date = new Date();
     }
 
     handleLogOut = () => {
@@ -52,25 +52,37 @@ class Home extends React.Component {
         this.props.sendAddReminder(this.state.addReminder,this.state.addNumber, this.state.userDate);
     }
 
-    editReminderMessage = () => {
+    handleRemoveAction = (e) => {
+        var removeIds = e.target.value;
+        var removeItem = parseInt(removeIds);
 
+
+        this.props.RemoveReminder(removeItem);
     }
 
-    editNumber = () => {
-
+    editReminderMessage = (e) => {
+        var editMessage = e.target.value
+        this.setState({editMessage: editMessage});
     }
 
-    editAddDate = () => {
+    editNumber = (e) => {
+        var editNumber = e.target.value
+        this.setState({editNumber:editNumber});
+    }
 
+    editAddDate = (value) => {
+       var editDate = value;
+        var editDates = moment(editDate).format("YYYY-MM-DDTH:m:00Z");
+        this.setState({editDates:editDates});
+    }
+
+    EditReminderAction = () => {
+        this.props.SendEditReminder(this.state.editMessage, this.state.editNumber, this.state.editDates, this.state.idEvent);
     }
 
     cancelValue = () => {
         const { reminders } = this.props;
         this.setState({editable:true});
-    }
-
-    saveButtonAction = () => {
-        this.props.saveReminder(this)
     }
 
     editvalue = (e) => {
@@ -91,12 +103,12 @@ class Home extends React.Component {
                     if(idEventValue === reminder.id) {
                         return(
                             <div key={index}>
-                                <input type="text" className="reminder-add" value={reminder.message} />
-                                <input type="number" className="reminder-number" value={reminder.phone_number}  />
+                                <input type="text" className="reminder-add" placeholder="edit message" value={this.state.editMessage} onChange={this.editReminderMessage}/>
+                                <input type="number" className="reminder-number" placeholder="edit number" value={this.state.editNumber} onChange={this.editNumber} />
                                 <div className="reminder-date">
-                                    <Datetime placeholder="Date & Time" value={moment(reminder.scheduled_datetime ).format("MM/DD/YYYY HH:mmA")}/>
+                                    <Datetime placeholder="Date & Time" onChange={this.editAddDate}/>
                                 </div>
-                                <button className="save-button" onClick={this.saveButtonAction}>SAVE</button>
+                                <button className="save-button" onClick={this.EditReminderAction}>SAVE</button>
                                 <button className="cancel-button" onClick={this.cancelValue}>CANCEL</button>
                             </div>
                         );
@@ -105,7 +117,7 @@ class Home extends React.Component {
                             <div key={index}>
                                 <span className="reminder-message"> {reminder.message} at </span>
                                 <span className="reminder-datetime">{moment(reminder.scheduled_datetime ).format("MMMM D, HH:mmA")}</span>
-                                <button className="remove-button">REMOVE </button>
+                                <button className="remove-button" value={reminder.id} onClick={this.handleRemoveAction}>REMOVE </button>
                                 <button className="edit-button" value={reminder.id}>EDIT </button>
                             </div>
                         );
@@ -120,7 +132,7 @@ class Home extends React.Component {
                     <div key={index}>
                         <span className="reminder-message"> {reminder.message} at </span>
                         <span className="reminder-datetime">{moment(reminder.scheduled_datetime ).format("MMMM D, HH:mmA")}</span>
-                        <button className="remove-button">REMOVE </button>
+                        <button className="remove-button" value={reminder.id} onClick={this.handleRemoveAction}>REMOVE </button>
                         <button className="edit-button" onClick={this.editvalue} value={reminder.id}>EDIT </button>
                     </div>
                 );
