@@ -24,7 +24,23 @@ class Home extends React.Component {
     }
 
     componentWillMount = () => {
-        this.props.fetchListReminder(token);  
+        this.props.fetchListReminder(token); 
+    }
+    
+
+    handlePastReminder = () => {
+        const { reminders } = this.props;
+        reminders.forEach(function (data) {
+            var userTime = data.scheduled_datetime;
+            var now  = moment().format();
+            if(userTime > now ) {
+               
+            }
+            else{
+                console.log('nothin');
+            }
+        });
+
     }
 
     handleLogOut = () => {
@@ -55,8 +71,6 @@ class Home extends React.Component {
     handleRemoveAction = (e) => {
         var removeIds = e.target.value;
         var removeItem = parseInt(removeIds);
-
-
         this.props.RemoveReminder(removeItem);
     }
 
@@ -78,6 +92,7 @@ class Home extends React.Component {
 
     EditReminderAction = () => {
         this.props.SendEditReminder(this.state.editMessage, this.state.editNumber, this.state.editDates, this.state.idEvent);
+        this.setState({editable: true});        
     }
 
     cancelValue = () => {
@@ -140,6 +155,9 @@ class Home extends React.Component {
         );
     }
 }
+
+
+
 render() {
     const { reminders } = this.props;
         return (
@@ -163,11 +181,11 @@ render() {
 
                 <div className = "past-reminders">
                     <h4>Past Reminder </h4>
+                   {this.handlePastReminder()}
                 </div>
             </div>
         );
     }
 }
 
- 
-export default Home; 
+export default Home;
