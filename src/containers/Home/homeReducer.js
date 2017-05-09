@@ -109,6 +109,32 @@ export default function homeReducer (state = initialState , action ){
                 reminders:reminders1
             }
         }
+        case "REMOVE_PAST_REMINDER_PENDING": {
+            return {
+                ...state,
+                fetching:true
+            }
+        }
+        case "REMOVE_PAST_REMINDER_REJECTED": {
+            return {
+                ...state,
+                fetching:false,
+                error:action.payload
+            }
+        }
+        case "REMOVE_PAST_REMINDER_FULFILLED": {
+            const idInfo =  action.payload.config.data;
+            const parseId = JSON.parse(idInfo);
+            const reminders = state.reminders.slice();
+            const reminders1 = state.reminders.filter(function(data) {
+                return data.id !== parseId.id; 
+            });
+            return {
+                ...state,
+                fetching:false,
+                reminders:reminders1
+            }
+        }
         default:
             return state;
    }

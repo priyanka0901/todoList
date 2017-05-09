@@ -19,33 +19,60 @@ class Home extends React.Component {
             editMessage: '',
             editNumber:'',
             editDates:'',
-            removeId: ''
+            removeId: '',
         }
+        this.pastArray = [];
+        this.presentArray = [];
     }
 
     componentWillMount = () => {
         this.props.fetchListReminder(token); 
     }
     
-
-    handlePastReminder = () => {
+    handleReminders = () => {
         const { reminders } = this.props;
         reminders.forEach(function (data) {
             var userTime = data.scheduled_datetime;
             var now  = moment().format();
-            if(userTime > now ) {
-               
+            if(userTime < now ) {
+                this.pastArray.push(data);
             }
             else{
-                console.log('nothin');
+                this.presentArray.push(data);
             }
-        });
+        },this);
 
+    }
+
+    handlePastReminder = (pastArray) => {
+        return(
+            pastArray.map(function (reminder, index) {
+                return(
+                    <div key={index}>
+                        <p className="past-message">{reminder.message}</p>
+                        <p className="past-date">{moment(reminder.scheduled_datetime ).format("MMMM D, HH:mmA")}</p>
+                        <button className="delete-button" value={reminder.id} onClick={this.handlePastDelete}>DELETE</button>
+                        <button className="remind-button" value={reminder.id} onClick={this.handleRemindAgain}> Remind again </button>  
+                    </div>
+                );
+            }, this)
+        );
     }
 
     handleLogOut = () => {
         localStorage.removeItem('tokenkey');
         window.location = '/Signin';   
+    }
+
+    handlePastDelete = (e) => {
+        var removeIds = e.target.value;
+        var removeItem = parseInt(removeIds);
+        this.props.RemovePastReminder(removeItem);
+    }
+
+    handleRemindAgain = () =>{
+        <input type= "text" className="reminder-add" placeholder="Add reminder messagedsscsd" onChange={this.handleAddReminder} />
+       
     }
 
     handleAddReminder = (e) => {
@@ -101,20 +128,18 @@ class Home extends React.Component {
     }
 
     editvalue = (e) => {
-        const { reminders } = this.props;
         this.setState({editable:false});
         var idEvents = e.target.value;
         var idEvent = parseInt(idEvents);
         this.setState({idEvent:idEvent});
     }
 
-    editButtonAction = () => {
-        const { reminders } = this.props;
+    editButtonAction = (presentArray) => {
         const editor = this.state.editable;
         const idEventValue = this.state.idEvent;
         if(!editor) {
             return(
-                reminders.map(function (reminder, index) {
+                presentArray.map(function (reminder, index) {
                     if(idEventValue === reminder.id) {
                         return(
                             <div key={index}>
@@ -142,7 +167,7 @@ class Home extends React.Component {
         }
         else {
             return(
-            reminders.map(function (reminder, index) {
+            presentArray.map(function (reminder, index) {
                 return(
                     <div key={index}>
                         <span className="reminder-message"> {reminder.message} at </span>
@@ -159,9 +184,9 @@ class Home extends React.Component {
 
 
 render() {
-    const { reminders } = this.props;
         return (
             <div className="home-page">
+            {this.handleReminders()}
                 <header>
                     <p>Logout</p>
                 </header>
@@ -176,12 +201,13 @@ render() {
                 </div>
                 <div className="upcoming-reminder">
                     <h4>Upcoming Reminder</h4>  
-                    {this.editButtonAction()}
+                    {this.editButtonAction(this.presentArray)}
                 </div>
 
                 <div className = "past-reminders">
                     <h4>Past Reminder </h4>
-                   {this.handlePastReminder()}
+                    {this.handlePastReminder(this.pastArray)}
+                   
                 </div>
             </div>
         );

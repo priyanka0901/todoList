@@ -70,12 +70,20 @@ export function RemoveReminder(removeItem) {
     }
 }
 
-
-// export function PastReminder(userId) {
-//     return {
-        
-//     }
-// }
-
-
+export const REMOVE_PAST_REMINDER = "REMOVE_PAST_REMINDER";
+export function RemovePastReminder(removeItem) {
+    return {
+        type: "REMOVE_PAST_REMINDER",
+        payload: axios({
+            method:"delete",
+            url:"https://frontend-challenge-2.herokuapp.com/reminders/" + removeItem + "/",
+            headers: {
+                'Authorization': `Token ${token}`
+            },
+            data:{
+                id: removeItem
+            }
+        })
+    }   
+}
 
