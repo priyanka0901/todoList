@@ -20,6 +20,7 @@ class Home extends React.Component {
             editNumber:'',
             editDates:'',
             removeId: '',
+            remindMessage: true
         }
         this.pastArray = [];
         this.presentArray = [];
@@ -46,7 +47,7 @@ class Home extends React.Component {
 
     handlePastReminder = (pastArray) => {
         return(
-            pastArray.map(function (reminder, index) {
+            this.pastArray.map(function (reminder, index) {
                 return(
                     <div key={index}>
                         <p className="past-message">{reminder.message}</p>
@@ -70,9 +71,18 @@ class Home extends React.Component {
         this.props.RemovePastReminder(removeItem);
     }
 
-    handleRemindAgain = () =>{
-        <input type= "text" className="reminder-add" placeholder="Add reminder messagedsscsd" onChange={this.handleAddReminder} />
-       
+    handleRemindAgain = (e) =>{
+        var removeIds = e.target.value;
+        var removeItem = parseInt(removeIds);
+        this.pastArray.forEach(function (reminder,index){
+        if(removeItem === reminder.id) {
+            var addMessage = reminder.message;
+            this.setState({addReminder: addMessage})
+            var addPhone = reminder.phone_number;
+            this.setState({addNumber:addPhone})
+        }
+      }, this)
+        this.props.RemovePastReminder(removeItem);
     }
 
     handleAddReminder = (e) => {
@@ -93,6 +103,9 @@ class Home extends React.Component {
 
     SendNewReminder = () => {
         this.props.sendAddReminder(this.state.addReminder,this.state.addNumber, this.state.userDate);
+        this.setState({addReminder:''});
+        this.setState({addNumber:''});
+        this.setState({userDate:''});
     }
 
     handleRemoveAction = (e) => {
@@ -139,7 +152,7 @@ class Home extends React.Component {
         const idEventValue = this.state.idEvent;
         if(!editor) {
             return(
-                presentArray.map(function (reminder, index) {
+                this.presentArray.map(function (reminder, index) {
                     if(idEventValue === reminder.id) {
                         return(
                             <div key={index}>
@@ -167,7 +180,7 @@ class Home extends React.Component {
         }
         else {
             return(
-            presentArray.map(function (reminder, index) {
+            this.presentArray.map(function (reminder, index) {
                 return(
                     <div key={index}>
                         <span className="reminder-message"> {reminder.message} at </span>
