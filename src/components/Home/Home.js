@@ -20,7 +20,6 @@ class Home extends React.Component {
             editNumber:'',
             editDates:'',
             removeId: '',
-            remindMessage: true
         }
         this.pastArray = [];
         this.presentArray = [];
