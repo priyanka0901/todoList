@@ -33,6 +33,7 @@ export default function homeReducer (state = initialState , action ){
             }
         }
         case "SEND_REMINDER_REJECTED": {
+            alert('you cannot select previous date and time ');
             return {
                 ...state,
                 fetching:false,
@@ -56,6 +57,7 @@ export default function homeReducer (state = initialState , action ){
             }
         }
         case "EDIT_REMINDER_REJECTED": {
+            alert('you cannot select previous date and time ');
             return {
                 ...state,
                 fetching:false,

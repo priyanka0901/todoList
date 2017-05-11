@@ -6,6 +6,7 @@ import moment from 'moment';
 import Datetime from 'react-datetime';
 
 const token = localStorage.getItem('tokenkey');
+const userEmail = localStorage.getItem('Email');
 
 class Home extends React.Component {
     constructor(props) {
@@ -61,6 +62,7 @@ class Home extends React.Component {
 
     handleLogOut = () => {
         localStorage.removeItem('tokenkey');
+        localStorage.removeItem('userEmail');
         window.location = '/Signin';   
     }
 
@@ -100,6 +102,25 @@ class Home extends React.Component {
         this.setState({userDate:addDates});
     }
 
+    AddButtonValidation = () =>{
+        const addReminder = this.state.addReminder;
+        const addNumber = this.state.addNumber;
+        const userDate = this.state.userDate;
+        if(addReminder.length === 0){
+            alert("please fill the add reminder message");
+        }
+        if(addNumber.length === 0 ){
+            alert('please add valid number');
+        }
+        if(userDate ==='') {
+            alert("please add the time and date for the reminder");
+        }
+
+        if(addReminder.length > 0 && addNumber.length > 0 && userDate !== ''){
+            this.SendNewReminder();
+        }
+    }
+
     SendNewReminder = () => {
         this.props.sendAddReminder(this.state.addReminder,this.state.addNumber, this.state.userDate);
         this.setState({addReminder:''});
@@ -131,12 +152,36 @@ class Home extends React.Component {
 
     EditReminderAction = () => {
         this.props.SendEditReminder(this.state.editMessage, this.state.editNumber, this.state.editDates, this.state.idEvent);
-        this.setState({editable: true});        
+        this.setState({editable: true}); 
+        this.setState({editMessage:''});   
+        this.setState({editNumber:''});  
+        this.setState({editDates:''}); 
+    }
+
+    EditButtonValidate = () => {
+        const editMessage = this.state.editMessage;
+        const editNumber= this.state.editNumber
+        const editDates = this.state.editDates;
+        if(editMessage.length === 0){
+            alert("please add the messgae");
+        }
+        if(editNumber.length === 0){
+            alert("please add the number")
+        }
+        if(editDates ===''){
+            alert("please fill the date and time");
+        }
+        if(editMessage.length > 0 && editDates !== ''){
+            this.EditReminderAction();
+        }
     }
 
     cancelValue = () => {
         const { reminders } = this.props;
         this.setState({editable:true});
+        this.setState({editMessage:''});   
+        this.setState({editNumber:''});  
+        this.setState({editDates:''}); 
     }
 
     editvalue = (e) => {
@@ -160,7 +205,7 @@ class Home extends React.Component {
                                 <div className="reminder-date">
                                     <Datetime placeholder="Date & Time" onChange={this.editAddDate}/>
                                 </div>
-                                <button className="save-button" onClick={this.EditReminderAction}>SAVE</button>
+                                <button className="save-button" onClick={this.EditButtonValidate}>SAVE</button>
                                 <button className="cancel-button" onClick={this.cancelValue}>CANCEL</button>
                             </div>
                         );
@@ -200,16 +245,17 @@ render() {
             <div className="home-page">
             {this.handleReminders()}
                 <header>
-                    <p>Logout</p>
+                    <p onClick={this.handleLogOut}>Logout</p>
+                    <p>{userEmail}</p>
                 </header>
                 <div className="add-reminder">
                     <h4>Add Reminder </h4>
                     <input type= "text" className="reminder-add" placeholder="Add reminder message" value={this.state.addReminder} onChange={this.handleAddReminder} />
                     <input type="number" className="reminder-number" placeholder="Phone number" value={this.state.addNumber} onChange={this.handleAddNumber} />
                     <div className="reminder-date">
-                        <Datetime placeholder="Date & Time" onChange={this.handleAddDate}/>
+                        <Datetime placeholder="Date & Time" value={this.state.userDate} onChange={this.handleAddDate}/>
                     </div>
-                    <button type="button" className="add-button" onClick={this.SendNewReminder}>ADD </button>
+                    <button type="button" className="add-button" onClick={this.AddButtonValidation}>ADD </button>
                 </div>
                 <div className="upcoming-reminder">
                     <h4>Upcoming Reminder</h4>  

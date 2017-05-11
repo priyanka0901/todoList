@@ -19,7 +19,7 @@ export function fetchSigninToken(username, password) {
             window.location = '/home';
         })
         .catch(function (error) {
-            console.log('wrong inputs');
+            alert('Unable to log in with provided credentials, check email or password');
           })
     }
 }

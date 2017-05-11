@@ -26,9 +26,27 @@ class Register extends React.Component {
     this.props.fetchRegisterToken(this.state.email,this.state.password,this.state.confirm_password);
   }
 
-  validatePassword = () =>{
-    this.props.validatePassword(this.state.password, this.state.confirm_password);
+  validateRegister = () =>{
+    const email = this.state.email;
+    localStorage.setItem('Email',email);
+    var userEmail = localStorage.getItem('Email');
+    const password = this.state.password;
+    const confirmPassword = this.state.confirm_password;
+
+    if(email.length ===0) {
+      alert('please add valid email');
+    }
+    if(password.length === 0 && confirmPassword.length ===0){
+      alert('please fill the password and it should have 8 letters');
+    }
+    if(password !== confirmPassword){
+      alert('Password and confirmPassword do not match');
+    }
+    if(email.length > 0 && password.length > 0 && confirmPassword.length > 0){
+      this.fetchUserInfo();
+    }
   }
+
   render() {
     return (
         <div>
@@ -40,9 +58,9 @@ class Register extends React.Component {
               <input type= "password" id="user-pass" required ="required" value={this.state.password} onChange={this.handlePasswordChange}/>
               <label>CONFIRM PASSWORD </label>
               <input type= "password" id="user-pass" required ="required" value={this.state.confirm_password} onChange={this.handleConfirmPasswordChange}/>
-             
           </form>
-          <button type="submit" onClick={this.fetchUserInfo}>Register </button>
+          <button type="submit" onClick={this.validateRegister}>Register </button>
+          
         </div>
      
     );

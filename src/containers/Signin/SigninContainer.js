@@ -4,6 +4,7 @@ import {fetchSigninToken} from './signinActions'
 
 const mapStateToProps = (state) => {
     return state;
+
 }
 
 const mapDispatchToProps = {

@@ -10,28 +10,48 @@ constructor(props) {
 }
 
 handleUserNameChange = (e) => {
-   this.setState({username: e.target.value});
+   var username = e.target.value
+   this.setState({username: username});
 }
 
 handlePasswordChange = (e) => {
-   this.setState({password: e.target.value});
+  var password = e.target.value
+   this.setState({password: password});
 }
 
 fetchUserInfo = () => {
   this.props.fetchSigninToken(this.state.username,this.state.password);
 }
 
+validateRegister = () =>{
+  const username = this.state.username;
+  localStorage.setItem('Email',username);
+  var userEmail = localStorage.getItem('Email');
+  const password = this.state.password;
+
+  if(username.length ===0) {
+    alert('please add valid email');
+  }
+  if(password.length === 0){
+    alert('please fill the password');
+  }
+
+  if(username.length > 0 && password.length > 0){
+    this.fetchUserInfo();
+  }
+}
+
 render() {
   return ( 
       <div>
         <h1>Welcome to Signin</h1>
-        <form>
+        <form onSubmit={this.handleSubmit}>
             <label>EMAIL ADDRESS </label>
-            <input type="email" id="user-email" required ="required" value={this.state.username} onChange={this.handleUserNameChange}/>
+            <input type="email" id="user-email" value={this.state.username} onChange={this.handleUserNameChange} required="required" />
             <label>PASSWORD </label>
-            <input type="password" id="user-pass" required ="required" value={this.state.password} onChange={this.handlePasswordChange} />
+            <input type="password" id="user-pass" required="required" value={this.state.password} onChange={this.handlePasswordChange} /> 
         </form>
-         <button type="button" onClick={this.fetchUserInfo}>Signin </button>
+         <button type="button" onClick={this.validateRegister}>Signin </button>
       </div>
     );
   }
