@@ -20,9 +20,7 @@ class Home extends React.Component {
             editNumber:'',
             editDates:'',
             removeId: '',
-        }
-        this.pastArray = [];
-        this.presentArray = [];
+        }   
     }
 
     componentWillMount = () => {
@@ -30,6 +28,8 @@ class Home extends React.Component {
     }
     
     handleReminders = () => {
+        this.pastArray = [];
+        this.presentArray = [];
         const { reminders } = this.props;
         reminders.forEach(function (data) {
             var userTime = data.scheduled_datetime;
