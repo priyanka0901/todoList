@@ -200,10 +200,10 @@ class Home extends React.Component {
                     if(idEventValue === reminder.id) {
                         return(
                             <div key={index}>
-                                <input type="text" className="reminder-add" placeholder="edit message" value={this.state.editMessage} onChange={this.editReminderMessage}/>
-                                <input type="number" className="reminder-number" placeholder="edit number" value={this.state.editNumber} onChange={this.editNumber} />
+                                <input type="text" className="reminder-add" placeholder={reminder.message} value={this.state.editMessage} onChange={this.editReminderMessage}/>
+                                <input type="number" className="reminder-number" placeholder={reminder.message} value={this.state.editNumber} onChange={this.editNumber} />
                                 <div className="reminder-date">
-                                    <Datetime placeholder="Date & Time" onChange={this.editAddDate}/>
+                                    <Datetime placeholder="Date & Time" placeholder={reminder.scheduled_datetime} onChange={this.editAddDate}/>
                                 </div>
                                 <button className="save-button" onClick={this.EditButtonValidate}>SAVE</button>
                                 <button className="cancel-button" onClick={this.cancelValue}>CANCEL</button>
