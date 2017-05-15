@@ -1,0 +1,142 @@
+.home-page {
+    height: 100%;
+    width: 100%;
+}
+
+header {
+    height: 50px;
+    background-color: #2C4154;
+    display: flex;
+    align-items: center;
+
+    p {
+        color:#fff;
+        font-size: 17px;
+        padding-left: 15px;
+        cursor: pointer;
+    }
+}
+
+.add-reminder{
+    text-align: left;
+    margin:30px 0;
+
+    input{
+        padding: 7px 15px;
+        margin-left: 20px;
+    }
+}
+
+.reminder-add {
+    width: 450px;
+}
+
+.reminder-number {
+    width: 150px;  
+}
+
+.reminder-date{
+    width: 250px;
+    display: inline-block;
+    padding: 7px 15px;
+}
+
+.reminder-message{
+    font-size: 15px;
+    color:#444;
+    word-spacing: 3.3px;
+    line-height: 30px;
+
+}
+
+.reminder-datetime{
+    background-color: #73909E;
+    color:#f3f3f3;
+    font-size: 13px;
+    padding: 3px 10px;
+    border-radius: 5px;
+}
+
+.add-button{
+    width: 100px;
+    font-size: 13px;
+    padding: 9px 15px;
+    margin-left: 20px;
+    background-color: #009D8A;
+    color: #fff;
+    border:none;
+}
+
+.edit-button{
+    width: 100px;
+    font-size: 13px;
+    padding: 4px 10px;
+    margin-left: 20px;
+    background-color: #009D8A;
+    color: #fff;
+    border:none;
+    float: right;
+}
+
+.upcoming-reminder{
+    text-align: left;
+    margin:30px 0;
+
+    p{
+        display: inline-block;
+    }
+}
+
+.remove-button{
+    width: 100px;
+    padding: 4px 10px;
+    margin-left: 20px;
+    background-color: #DE0000;
+    color: #fff;
+    border:none;
+    font-size: 13px;
+    float: right;
+}
+
+.past-reminders{
+    text-align: left;
+
+}
+
+.past-message{
+    color:#999;
+    text-decoration: line-through;
+    display: inline-block;
+}
+
+.past-date {
+    text-decoration: line-through;
+    display: inline-block;
+    background-color: #73909E;
+    color:#f3f3f3;
+    font-size: 13px;
+    padding: 3px 10px;
+    border-radius: 5px;
+}
+
+.remind-button{
+    background-color:#0094E1;
+    color:#fff;
+    float: right;
+    width: 100px;
+    font-size: 12px;
+    padding: 4px 10px;
+    margin-left: 20px;
+    border: none;
+}
+
+.delete-button{
+    background-color: red;
+    color: #fff;
+    float: right;
+    width: 100px;
+    font-size: 13px;
+    padding: 4px 10px;
+    margin-left: 20px;
+    border: none;
+}
